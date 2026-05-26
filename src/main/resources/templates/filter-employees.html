@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Filter Employees</title>
+
+<link rel="stylesheet" href="/css/admin-style.css">
+
+<style>
+
+/* Wider page */
+.container{
+    max-width:1100px;
+}
+
+/* Filter Row */
+.filter-box{
+    display:flex;
+    gap:12px;
+    margin-bottom:28px;
+}
+
+.filter-box select{
+    flex:1;
+}
+
+.filter-box button{
+    width:auto;
+    margin-top:0;
+    padding:14px 24px;
+}
+
+/* Dropdown options */
+select option{
+    background:#1e293b;
+    color:white;
+}
+
+/* Table */
+table{
+    width:100%;
+    border-collapse:collapse;
+    border-radius:16px;
+    overflow:hidden;
+}
+
+th{
+    padding:16px;
+    text-align:center;
+    background:rgba(37,99,235,0.88);
+    color:white;
+}
+
+td{
+    padding:16px;
+    text-align:center;
+    color:white;
+    background:rgba(255,255,255,0.08);
+    border-bottom:1px solid rgba(255,255,255,0.08);
+}
+
+tr:nth-child(even) td{
+    background:rgba(255,255,255,0.05);
+}
+
+tbody tr:hover td{
+    background:rgba(255,255,255,0.12);
+}
+
+/* Back button */
+.btn-wrapper{
+    display:flex;
+    justify-content:center;
+    margin-top:28px;
+}
+
+.back-btn:hover{
+    background:#1d4ed8;
+}
+
+/* Responsive */
+@media(max-width:768px){
+
+    .filter-box{
+        flex-direction:column;
+    }
+
+    .filter-box button{
+        width:100%;
+    }
+
+    table{
+        display:block;
+        overflow-x:auto;
+        white-space:nowrap;
+    }
+}
+
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<h2>Filter Employees by Designation</h2>
+
+<form th:action="@{/admin/filter}" method="post">
+
+<div class="filter-box">
+
+<select name="department" required>
+    <option value="">Select Designation</option>
+    <option>Software Engineer</option>
+    <option>Frontend Developer</option>
+    <option>Backend Developer</option>
+    <option>Full Stack Developer</option>
+    <option>QA Engineer</option>
+    <option>DevOps Engineer</option>
+    <option>UI/UX Designer</option>
+    <option>Data Analyst</option>
+    <option>Project Manager</option>
+    <option>Tech Lead</option>
+    <option>HR</option>
+    <option>Manager</option>
+</select>
+
+<button type="submit">
+    Apply Filter
+</button>
+
+</div>
+
+</form>
+
+<table th:if="${employees != null}">
+
+<tr>
+    <th>ID</th>
+    <th>Employee Name</th>
+    <th>Designation</th>
+    <th>Email</th>
+    <th>Mobile</th>
+</tr>
+
+<tr th:each="emp : ${employees}">
+    <td th:text="${emp.id}"></td>
+    <td th:text="${emp.firstName + ' ' + emp.lastName}"></td>
+    <td th:text="${emp.department}"></td>
+    <td th:text="${emp.email}"></td>
+    <td th:text="${emp.mobile}"></td>
+</tr>
+
+</table>
+
+<div class="btn-wrapper">
+    <a href="/admin/dashboard" class="back-btn">
+        Back to Dashboard
+    </a>
+</div>
+
+</div>
+
+</body>
+</html>

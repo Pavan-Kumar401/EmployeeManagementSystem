@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Employee Profile</title>
+
+<link rel="stylesheet" href="/css/employee-style.css">
+
+<style>
+
+/* profile container */
+.container{
+    max-width:760px;
+}
+
+/* heading */
+h2{
+    text-align:center;
+    color:white;
+    font-size:40px;
+    margin-bottom:30px;
+}
+
+/* profile info cards */
+.info{
+    padding:16px 18px;
+    margin-bottom:14px;
+
+    border-radius:14px;
+
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.10);
+
+    color:white;
+    font-size:17px;
+
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+}
+
+/* label */
+.label{
+    font-weight:700;
+    color:#93c5fd;
+    margin-right:6px;
+}
+
+/* buttons row */
+.button-group{
+    display:flex;
+    gap:18px;
+    justify-content:center;
+    margin-top:30px;
+}
+
+/* edit button */
+.edit-btn{
+    flex:1;
+    max-width:260px;
+}
+
+/* dashboard button */
+.dashboard-btn{
+    flex:1;
+    max-width:260px;
+}
+
+/* both buttons same style */
+.edit-btn,
+.dashboard-btn{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    height:58px;
+
+    text-decoration:none;
+    color:white;
+
+    font-size:18px;
+    font-weight:600;
+
+    border-radius:14px;
+
+    background:#2563eb;
+
+    transition:.25s ease;
+}
+
+.edit-btn:hover,
+.dashboard-btn:hover{
+    background:#1d4ed8;
+    transform:translateY(-2px);
+}
+
+/* mobile */
+@media(max-width:768px){
+
+    .button-group{
+        flex-direction:column;
+        align-items:center;
+    }
+
+    .edit-btn,
+    .dashboard-btn{
+        width:100%;
+        max-width:100%;
+    }
+}
+
+</style>
+</head>
+<body>
+
+<div class="container">
+
+    <h2>My Profile</h2>
+
+    <div class="info">
+        <span class="label">Employee Code:</span>
+        <span th:text="${employee.employeeCode}"></span>
+    </div>
+
+    <div class="info">
+        <span class="label">Name:</span>
+        <span th:text="${employee.firstName + ' ' + employee.lastName}"></span>
+    </div>
+
+    <div class="info">
+        <span class="label">Department:</span>
+        <span th:text="${employee.department}"></span>
+    </div>
+
+    <div class="info">
+        <span class="label">Email:</span>
+        <span th:text="${employee.email}"></span>
+    </div>
+
+    <div class="info">
+        <span class="label">Mobile:</span>
+        <span th:text="${employee.mobile}"></span>
+    </div>
+
+    <div class="info">
+        <span class="label">Manager:</span>
+        <span th:text="${employee.managerName}"></span>
+    </div>
+
+    <div class="button-group">
+
+        <a href="/employee/edit" class="edit-btn">
+            Edit Profile
+        </a>
+
+        <a href="/employee/dashboard" class="dashboard-btn">
+            Back to Dashboard
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+</html>

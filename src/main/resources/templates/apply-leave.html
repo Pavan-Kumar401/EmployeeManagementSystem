@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Apply Leave</title>
+
+<link rel="stylesheet" href="/css/employee-style.css">
+
+<style>
+
+.container{
+    max-width:560px;
+}
+
+h2{
+    text-align:center;
+    color:white;
+    font-size:38px;
+    margin-bottom:28px;
+}
+
+input,
+select,
+textarea{
+    margin-bottom:16px;
+}
+
+textarea{
+    min-height:110px;
+    resize:none;
+}
+
+button{
+    width:100%;
+}
+
+.success{
+    color:#86efac;
+    text-align:center;
+    margin-top:16px;
+    font-size:15px;
+    font-weight:600;
+}
+
+.info-msg{
+    color:white;
+    text-align:center;
+    font-size:16px;
+    margin-top:20px;
+    line-height:1.6;
+    padding:18px;
+    border-radius:14px;
+    background:rgba(255,255,255,0.08);
+}
+
+.action-buttons{
+    display:flex;
+    gap:16px;
+    justify-content:center;
+    margin-top:24px;
+}
+
+.dashboard-btn,
+.logout-btn{
+    flex:1;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:54px;
+    text-decoration:none;
+    color:white;
+    font-size:16px;
+    font-weight:600;
+    border-radius:12px;
+    transition:.25s ease;
+}
+
+.dashboard-btn{
+    background:#2563eb;
+}
+
+.dashboard-btn:hover{
+    background:#1d4ed8;
+}
+
+.logout-btn{
+    background:#64748b;
+}
+
+.logout-btn:hover{
+    background:#475569;
+}
+
+@media(max-width:768px){
+
+    .action-buttons{
+        flex-direction:column;
+    }
+}
+
+body{
+    min-height:100vh;
+    margin:0;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    padding:20px;
+    box-sizing:border-box;
+}
+
+.container{
+    width:100%;
+    max-width:560px;
+}
+
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<h2>Apply Leave</h2>
+
+
+<!-- pending leave message -->
+<div th:if="${hasPendingLeave}" class="info-msg">
+
+    You already have a pending leave request.<br>
+    Please wait until admin reviews it before applying again.
+
+</div>
+
+
+<!-- monthly limit message -->
+<div th:if="${monthlyLeaveLimitReached}" class="info-msg">
+
+    You have reached your leave limit for this month.<br>
+    You can apply again next month.
+
+</div>
+
+
+<!-- form -->
+<form
+      th:if="${hasPendingLeave == false and monthlyLeaveLimitReached == false}"
+      th:action="@{/employee/apply-leave}"
+      method="post">
+
+    <select name="leaveType" required>
+        <option value="">Select Leave Type</option>
+        <option value="Casual Leave">Casual Leave</option>
+        <option value="Sick Leave">Sick Leave</option>
+        <option value="Work From Home">Work From Home</option>
+    </select>
+
+    <input type="date" name="fromDate" required>
+
+    <input type="date" name="toDate" required>
+
+    <textarea name="reason" placeholder="Reason for leave" required></textarea>
+
+    <button type="submit">
+        Submit Leave Request
+    </button>
+
+</form>
+
+
+<p th:if="${success}"
+   th:text="${success}"
+   class="success">
+</p>
+
+
+<div class="action-buttons">
+
+    <a href="/employee/dashboard" class="dashboard-btn">
+        Back to Dashboard
+    </a>
+
+    <a href="/employee/logout" class="logout-btn">
+        Logout
+    </a>
+
+</div>
+
+</div>
+
+</body>
+</html>

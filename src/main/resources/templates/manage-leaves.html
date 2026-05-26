@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Manage Leave Requests</title>
+
+<link rel="stylesheet" href="/css/admin-style.css">
+
+<style>
+
+/* wider container for tables */
+.container{
+    max-width:1300px;
+}
+
+/* section headings */
+.section-title{
+    color:white;
+    font-size:28px;
+    font-weight:700;
+    margin:30px 0 18px;
+}
+
+/* tables */
+table{
+    width:100%;
+    border-collapse:collapse;
+    border-radius:16px;
+    overflow:hidden;
+    margin-bottom:28px;
+}
+
+th{
+    padding:15px;
+    text-align:center;
+    background:rgba(37,99,235,0.88);
+    color:white;
+}
+
+td{
+    padding:14px;
+    text-align:center;
+    color:white;
+    background:rgba(255,255,255,0.08);
+    border-bottom:1px solid rgba(255,255,255,0.08);
+}
+
+tr:nth-child(even) td{
+    background:rgba(255,255,255,0.05);
+}
+
+tbody tr:hover td{
+    background:rgba(255,255,255,0.12);
+}
+
+/* action buttons */
+.action-buttons{
+    display:flex;
+    justify-content:center;
+    gap:8px;
+    flex-wrap:wrap;
+}
+
+.approve-btn,
+.reject-btn{
+    padding:8px 14px;
+    border-radius:8px;
+    color:white;
+    text-decoration:none;
+    font-size:14px;
+    font-weight:600;
+}
+
+.approve-btn{
+    background:#16a34a;
+}
+
+.approve-btn:hover{
+    background:#15803d;
+}
+
+.reject-btn{
+    background:#dc2626;
+}
+
+.reject-btn:hover{
+    background:#b91c1c;
+}
+
+/* empty messages */
+.empty-msg{
+    color:rgba(255,255,255,0.75);
+    margin-bottom:18px;
+    font-size:16px;
+}
+
+/* dashboard button */
+.dashboard-wrapper{
+    display:flex;
+    justify-content:center;
+    margin-top:30px;
+}
+
+.back-btn:hover{
+    background:#1d4ed8;
+}
+
+/* mobile scroll */
+@media(max-width:768px){
+
+    table{
+        display:block;
+        overflow-x:auto;
+        white-space:nowrap;
+    }
+
+    .section-title{
+        font-size:22px;
+    }
+}
+
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<h2>Manage Leave Requests</h2>
+
+
+<!-- Pending -->
+<h3 class="section-title">Pending Leave Requests</h3>
+
+<p th:if="${#lists.isEmpty(pendingLeaves)}"
+   class="empty-msg">
+   No pending leave requests
+</p>
+
+<table th:if="${!#lists.isEmpty(pendingLeaves)}">
+
+<tr>
+    <th>Employee Code</th>
+    <th>Employee Name</th>
+    <th>Leave Type</th>
+    <th>From Date</th>
+    <th>To Date</th>
+    <th>Reason</th>
+    <th>Status</th>
+    <th>Action</th>
+</tr>
+
+<tr th:each="leave : ${pendingLeaves}">
+    <td th:text="${leave.employeeCode}"></td>
+    <td th:text="${leave.employeeName}"></td>
+    <td th:text="${leave.leaveType}"></td>
+    <td th:text="${leave.fromDate}"></td>
+    <td th:text="${leave.toDate}"></td>
+    <td th:text="${leave.reason}"></td>
+    <td th:text="${leave.status}"></td>
+
+    <td>
+        <div class="action-buttons">
+
+            <a th:href="@{/admin/approve-leave(id=${leave.id})}"
+               class="approve-btn">
+                Approve
+            </a>
+
+            <a th:href="@{/admin/reject-leave(id=${leave.id})}"
+               class="reject-btn">
+                Reject
+            </a>
+
+        </div>
+    </td>
+</tr>
+
+</table>
+
+
+<!-- Approved -->
+<h3 class="section-title">Approved Leave History</h3>
+
+<p th:if="${#lists.isEmpty(approvedLeaves)}"
+   class="empty-msg">
+   No approved leave records
+</p>
+
+<table th:if="${!#lists.isEmpty(approvedLeaves)}">
+
+<tr>
+    <th>Employee Code</th>
+    <th>Employee Name</th>
+    <th>Leave Type</th>
+    <th>From Date</th>
+    <th>To Date</th>
+    <th>Reason</th>
+    <th>Status</th>
+	<th>Approved On</th>
+</tr>
+
+<tr th:each="leave : ${approvedLeaves}">
+    <td th:text="${leave.employeeCode}"></td>
+    <td th:text="${leave.employeeName}"></td>
+    <td th:text="${leave.leaveType}"></td>
+    <td th:text="${leave.fromDate}"></td>
+    <td th:text="${leave.toDate}"></td>
+    <td th:text="${leave.reason}"></td>
+    <td th:text="${leave.status}"></td>
+	<td th:text="${leave.actionDate}"></td>
+</tr>
+
+</table>
+
+<!-- Rejected -->
+<h3 class="section-title">Rejected Leave History</h3>
+
+<p th:if="${#lists.isEmpty(rejectedLeaves)}"
+   class="empty-msg">
+   No rejected leave records
+</p>
+
+<table th:if="${!#lists.isEmpty(rejectedLeaves)}">
+
+<tr>
+    <th>Employee Code</th>
+    <th>Employee Name</th>
+    <th>Leave Type</th>
+    <th>From Date</th>
+    <th>To Date</th>
+    <th>Reason</th>
+    <th>Status</th>
+	<th>Rejected On</th>
+</tr>
+
+<tr th:each="leave : ${rejectedLeaves}">
+    <td th:text="${leave.employeeCode}"></td>
+    <td th:text="${leave.employeeName}"></td>
+    <td th:text="${leave.leaveType}"></td>
+    <td th:text="${leave.fromDate}"></td>
+    <td th:text="${leave.toDate}"></td>
+    <td th:text="${leave.reason}"></td>
+
+    <td style="color:#f87171; font-weight:600;">
+        Rejected
+    </td>
+	<td th:text="${leave.actionDate}"></td>
+</tr>
+
+</table>
+<div class="dashboard-wrapper">
+    <a href="/admin/dashboard" class="back-btn">
+        Back to Dashboard
+    </a>
+</div>
+
+</div>
+
+</body>
+</html>

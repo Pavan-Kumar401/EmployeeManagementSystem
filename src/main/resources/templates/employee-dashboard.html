@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Employee Dashboard</title>
+
+<link rel="stylesheet" href="/css/employee-style.css">
+
+<style>
+
+/* main wrapper */
+.container{
+    max-width:980px;
+    margin:20px auto;
+    padding:28px 40px;
+}
+
+/* heading */
+h1{
+    text-align:center;
+    color:white;
+    font-size:48px;
+    font-weight:700;
+    margin-bottom:30px;
+}
+
+/* cards grid */
+.card-grid{
+    display:grid;
+    grid-template-columns:repeat(2, 260px);
+    justify-content:center;
+    gap:22px;
+}
+
+/* card */
+.card{
+    width:260px;
+    height:115px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    text-decoration:none;
+    color:white;
+
+    font-size:18px;
+    font-weight:600;
+
+    border-radius:20px;
+
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.10);
+
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+
+    transition:0.25s ease;
+}
+
+.card:hover{
+    transform:translateY(-3px);
+    background:rgba(255,255,255,0.12);
+}
+
+/* logout */
+.logout-wrapper{
+    display:flex;
+    justify-content:center;
+    margin-top:24px;
+}
+
+.logout-card{
+    width:260px;
+    height:60px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:#ef4444;
+    color:white;
+
+    border-radius:16px;
+
+    text-decoration:none;
+    font-size:18px;
+    font-weight:600;
+
+    transition:.25s ease;
+}
+
+.logout-card:hover{
+    background:#dc2626;
+    transform:translateY(-2px);
+}
+
+/* responsive */
+@media(max-width:768px){
+
+    .container{
+        padding:20px;
+    }
+
+    h1{
+        font-size:36px;
+        margin-bottom:24px;
+    }
+
+    .card-grid{
+        grid-template-columns:1fr;
+    }
+
+    .card,
+    .logout-card{
+        width:100%;
+    }
+}
+
+</style>
+</head>
+<body>
+
+<div class="container">
+
+    <h1>
+        Welcome,
+        <span th:text="${employee.firstName}"></span> 👋
+    </h1>
+
+    <div class="card-grid">
+
+        <a href="/employee/profile" class="card">
+            View My Profile
+        </a>
+
+        <a href="/employee/edit" class="card">
+            Edit My Profile
+        </a>
+
+        <a href="/employee/apply-leave" class="card">
+            Apply Leave
+        </a>
+
+        <a href="/employee/my-leaves" class="card">
+            My Leave Status
+        </a>
+
+    </div>
+
+    <div class="logout-wrapper">
+        <a href="/employee/logout" class="logout-card">
+            Logout
+        </a>
+    </div>
+
+</div>
+
+</body>
+</html>

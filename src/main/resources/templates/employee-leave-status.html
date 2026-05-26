@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>My Leave Status</title>
+
+<link rel="stylesheet" href="/css/employee-style.css">
+
+<style>
+
+.container{
+    max-width:1200px;
+}
+
+.section-title{
+    color:white;
+    font-size:28px;
+    margin-bottom:25px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    border-radius:16px;
+    overflow:hidden;
+}
+
+th{
+    background:#2563eb;
+    color:white;
+    padding:14px;
+}
+
+td{
+    padding:14px;
+    text-align:center;
+    color:white;
+    background:rgba(255,255,255,0.08);
+}
+
+tr:nth-child(even) td{
+    background:rgba(255,255,255,0.05);
+}
+
+.pending{
+    color:#facc15;
+    font-weight:600;
+}
+
+.approved{
+    color:#22c55e;
+    font-weight:600;
+}
+
+.rejected{
+    color:#ef4444;
+    font-weight:600;
+}
+
+.dashboard-wrapper{
+    display:flex;
+    justify-content:center;
+    margin-top:35px;
+}
+
+.dashboard-wrapper .back-btn{
+    width:260px;
+    height:58px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:#2563eb !important;
+    color:#ffffff !important;
+
+    border-radius:16px;
+
+    text-decoration:none !important;
+
+    font-size:18px;
+    font-weight:600;
+
+    border:none;
+
+    transition:0.25s ease;
+}
+
+.dashboard-wrapper .back-btn:hover{
+    background:#1d4ed8 !important;
+    transform:translateY(-2px);
+}
+
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<h2>My Leave Requests</h2>
+
+<p th:if="${#lists.isEmpty(leaveRequests)}"
+   class="empty-msg">
+   No leave requests found
+</p>
+
+<table th:if="${!#lists.isEmpty(leaveRequests)}">
+
+<tr>
+    <th>Leave Type</th>
+    <th>From Date</th>
+    <th>To Date</th>
+    <th>Reason</th>
+    <th>Status</th>
+    <th>Updated On</th>
+</tr>
+
+<tr th:each="leave : ${leaveRequests}">
+    <td th:text="${leave.leaveType}"></td>
+    <td th:text="${leave.fromDate}"></td>
+    <td th:text="${leave.toDate}"></td>
+    <td th:text="${leave.reason}"></td>
+
+    <td>
+        <span th:text="${leave.status}"
+              th:classappend="${#strings.toLowerCase(leave.status)}">
+        </span>
+    </td>
+
+    <td th:text="${leave.actionDate}"></td>
+</tr>
+
+</table>
+
+<div class="dashboard-wrapper">
+    <a href="/employee/dashboard" class="back-btn">
+        Back to Dashboard
+    </a>
+</div>
+
+</div>
+
+</body>
+</html>

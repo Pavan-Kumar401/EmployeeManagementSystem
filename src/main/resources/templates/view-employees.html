@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>View Employees</title>
+
+<link rel="stylesheet" href="/css/admin-style.css">
+
+<style>
+
+/* page width override */
+.container{
+    max-width:1250px;
+}
+
+/* Table */
+table{
+    width:100%;
+    border-collapse:collapse;
+    overflow:hidden;
+    border-radius:16px;
+}
+
+/* Head */
+th{
+    padding:16px;
+    text-align:center;
+
+    background:rgba(37,99,235,0.85);
+    color:white;
+
+    font-size:17px;
+}
+
+/* Body */
+td{
+    padding:16px;
+    text-align:center;
+    color:white;
+
+    background:rgba(255,255,255,0.08);
+
+    border-bottom:1px solid rgba(255,255,255,0.08);
+}
+
+tr:nth-child(even) td{
+    background:rgba(255,255,255,0.05);
+}
+
+tbody tr:hover td{
+    background:rgba(255,255,255,0.12);
+    transition:0.2s ease;
+}
+
+/* Back Button */
+.btn-container{
+    display:flex;
+    justify-content:center;
+    margin-top:28px;
+}
+
+.back-btn{
+    width:auto;
+    padding:14px 28px;
+}
+
+/* Mobile */
+@media(max-width:768px){
+
+    .container{
+        overflow-x:auto;
+        padding:18px;
+    }
+
+    table{
+        min-width:850px;
+    }
+}
+
+</style>
+</head>
+<body>
+
+<div class="container">
+
+    <h2>Employee List</h2>
+
+    <table>
+
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Employee Name</th>
+                <th>Designation</th>
+                <th>Email</th>
+                <th>Mobile</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr th:each="emp : ${employees}">
+                <td th:text="${emp.id}"></td>
+                <td th:text="${emp.firstName + ' ' + emp.lastName}"></td>
+                <td th:text="${emp.department}"></td>
+                <td th:text="${emp.email}"></td>
+                <td th:text="${emp.mobile}"></td>
+            </tr>
+        </tbody>
+
+    </table>
+
+    <div class="btn-container">
+        <a href="/admin/dashboard" class="back-btn">
+            Back to Dashboard
+        </a>
+    </div>
+
+</div>
+
+</body>
+</html>

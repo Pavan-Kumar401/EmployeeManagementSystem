@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Admin Dashboard</title>
+
+<link rel="stylesheet" href="/css/admin-style.css">
+
+<style>
+
+body{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+}
+
+/* Dashboard Box */
+.dashboard-container{
+    width:100%;
+    max-width:1180px;
+    padding:32px;
+    border-radius:24px;
+
+    background:rgba(15,23,42,0.42);
+
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+
+    border:1px solid rgba(255,255,255,0.12);
+}
+
+/* Heading */
+h1{
+    text-align:center;
+    font-size:58px;
+    color:white;
+    margin-bottom:28px;
+}
+
+/* Grid */
+.card-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+}
+
+/* Card */
+.card{
+    height:100px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    text-decoration:none;
+    text-align:center;
+
+    color:white;
+    font-size:20px;
+    font-weight:600;
+
+    border-radius:16px;
+
+    background:rgba(255,255,255,0.10);
+    border:1px solid rgba(255,255,255,0.14);
+
+    transition:0.25s;
+}
+
+.card:hover{
+    transform:translateY(-4px);
+    background:rgba(255,255,255,0.16);
+}
+
+/* Logout */
+.logout-wrapper{
+    margin-top:20px;
+    display:flex;
+    justify-content:center;
+}
+
+.logout-btn{
+    width:210px;
+    height:50px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    border-radius:12px;
+
+    text-decoration:none;
+    color:white;
+    font-weight:600;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ef4444,
+            #dc2626
+        );
+}
+
+@media(max-width:900px){
+    .card-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+
+@media(max-width:600px){
+    .card-grid{
+        grid-template-columns:1fr;
+    }
+
+    h1{
+        font-size:38px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="dashboard-container">
+
+    <h1>Admin Dashboard</h1>
+
+    <div class="card-grid">
+
+        <a href="/admin/add-employee" class="card">Add New Employee</a>
+
+        <a href="/admin/view-employees" class="card">View Employees</a>
+
+        <a href="/admin/search" class="card">Search Employee</a>
+
+        <a href="/admin/filter" class="card">Filter by Designation</a>
+
+        <a href="/admin/update" class="card">Update Employee Details</a>
+
+        <a href="/admin/delete" class="card">Delete Employee</a>
+
+		<a href="/admin/manage-leaves" class="card">
+		    Manage Leave Requests
+		</a>
+
+    </div>
+
+    <div class="logout-wrapper">
+        <a href="/" class="logout-btn">Logout</a>
+    </div>
+
+</div>
+
+</body>
+</html>

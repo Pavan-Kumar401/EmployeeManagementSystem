@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Edit Profile</title>
+
+<link rel="stylesheet" href="/css/employee-style.css">
+
+<style>
+
+.container{
+    max-width:540px;
+}
+
+/* heading */
+h2{
+    text-align:center;
+    color:white;
+    font-size:36px;
+    margin-bottom:28px;
+}
+
+/* input spacing */
+input{
+    margin-bottom:16px;
+}
+
+/* button row */
+.button-group{
+    display:flex;
+    gap:16px;
+    margin-top:24px;
+}
+
+/* save button */
+.save-btn{
+    flex:2;
+    width:100%;
+    margin-top:0;
+}
+
+/* back button */
+.back-btn{
+    flex:1;
+    min-width:200px;
+    height:52px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    text-decoration:none;
+    text-align:center;
+    white-space:nowrap;
+
+    color:white;
+    font-size:16px;
+    font-weight:600;
+
+    border-radius:12px;
+
+    background:#2563eb;
+
+    transition:0.25s ease;
+}
+
+.back-btn:hover{
+    background:#1d4ed8;
+    transform:translateY(-2px);
+}
+
+/* mobile */
+@media(max-width:768px){
+
+    .button-group{
+        flex-direction:column;
+    }
+
+    .save-btn,
+    .back-btn{
+        width:100%;
+        min-width:100%;
+    }
+}
+
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<h2>Edit My Profile</h2>
+
+<form th:action="@{/employee/update-profile}"
+      th:object="${employee}"
+      method="post">
+
+    <input type="hidden" th:field="*{id}">
+
+    <label>Mobile Number</label>
+    <input type="text" th:field="*{mobile}">
+
+    <label>Address</label>
+    <input type="text" th:field="*{address}">
+
+    <div class="button-group">
+
+        <button type="submit" class="save-btn">
+            Save Changes
+        </button>
+
+        <a href="/employee/profile" class="back-btn">
+            Back to Profile
+        </a>
+
+    </div>
+
+</form>
+
+</div>
+
+</body>
+</html>

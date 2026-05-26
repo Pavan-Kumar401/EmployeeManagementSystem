@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Delete Employee</title>
+
+<link rel="stylesheet" href="/css/admin-style.css">
+
+<style>
+
+.container{
+    max-width:650px;
+    margin-top:80px;
+}
+
+.delete-form{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+}
+
+/* Red delete button */
+.delete-btn{
+    background:#ef4444;
+    margin-top:0;
+}
+
+.delete-btn:hover{
+    background:#dc2626;
+}
+
+/* Back button section */
+.btn-wrapper{
+    display:flex;
+    justify-content:center;
+    margin-top:18px;
+}
+
+/* Messages */
+.success{
+    color:#86efac;
+    text-align:center;
+    margin-top:18px;
+    font-weight:600;
+}
+
+.error{
+    color:#fca5a5;
+    text-align:center;
+    margin-top:18px;
+    font-weight:600;
+}
+
+</style>
+</head>
+<body>
+
+<div class="container">
+
+    <h2>Delete Employee</h2>
+
+    <form th:action="@{/admin/delete-employee}"
+          method="post"
+          class="delete-form"
+          onsubmit="return confirm('Are you sure you want to delete this employee?');">
+
+        <input
+            type="number"
+            name="id"
+            placeholder="Enter Employee ID"
+            required>
+
+        <button type="submit" class="delete-btn">
+            Delete Employee
+        </button>
+
+    </form>
+
+    <div class="btn-wrapper">
+        <a href="/admin/dashboard" class="back-btn">
+            Back to Dashboard
+        </a>
+    </div>
+
+    <p th:if="${success}"
+       th:text="${success}"
+       class="success"></p>
+
+    <p th:if="${error}"
+       th:text="${error}"
+       class="error"></p>
+
+</div>
+
+</body>
+</html>

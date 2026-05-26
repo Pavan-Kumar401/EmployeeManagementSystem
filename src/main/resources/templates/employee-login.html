@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Employee Sign In</title>
+
+<link rel="stylesheet" href="/css/employee-style.css">
+
+<style>
+
+/* page-specific alignment only for login */
+body{
+    min-height:100vh;
+    margin:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+/* login card */
+.login-container{
+    width:100%;
+    max-width:420px;
+    padding:42px 36px;
+    border-radius:24px;
+
+    background:rgba(15,23,42,0.42);
+
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+
+    border:1px solid rgba(255,255,255,0.12);
+
+    box-shadow:0 12px 35px rgba(0,0,0,0.20);
+}
+
+/* heading */
+h2{
+    text-align:center;
+    color:white;
+    font-size:36px;
+    margin-bottom:28px;
+}
+
+/* spacing */
+input{
+    margin-bottom:16px;
+}
+
+/* button */
+button{
+    width:100%;
+}
+
+/* error */
+.error-msg{
+    color:#fca5a5;
+    text-align:center;
+    margin-top:14px;
+    font-size:14px;
+}
+
+/* links */
+.forgot-password,
+.signup-link,
+.home-link{
+    text-align:center;
+    margin-top:18px;
+    color:white;
+    font-size:15px;
+}
+
+.forgot-password a,
+.signup-link a,
+.home-link a{
+    color:#93c5fd;
+    text-decoration:none;
+    font-weight:600;
+}
+
+.forgot-password a:hover,
+.signup-link a:hover,
+.home-link a:hover{
+    color:white;
+}
+
+/* mobile */
+@media(max-width:768px){
+    .login-container{
+        max-width:100%;
+    }
+}
+
+</style>
+</head>
+<body>
+
+<div class="login-container">
+
+    <h2>Employee Sign In</h2>
+
+    <form th:action="@{/employee/login}" method="post">
+
+        <input
+            type="text"
+            name="username"
+            placeholder="Enter Username"
+            required>
+
+        <input
+            type="password"
+            name="password"
+            placeholder="Enter Password"
+            required>
+
+        <button type="submit">
+            Sign In
+        </button>
+
+    </form>
+
+    <p th:if="${error}"
+       th:text="${error}"
+       class="error-msg">
+    </p>
+
+    <div class="forgot-password">
+        <a href="/employee/forgot-password">
+            Forgot Password?
+        </a>
+    </div>
+
+    <div class="signup-link">
+        Don’t have an account?
+        <a href="/employee/register">
+            Sign Up
+        </a>
+    </div>
+
+    <div class="home-link">
+        <a href="/">← Back to Home</a>
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Employee Registration</title>
+
+<link rel="stylesheet" href="/css/employee-style.css">
+
+<style>
+
+/* register card */
+.register-container{
+    width:460px;
+    padding:42px 36px;
+    border-radius:24px;
+
+    background:rgba(15,23,42,0.42);
+
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+
+    border:1px solid rgba(255,255,255,0.12);
+
+    box-shadow:
+        0 12px 35px rgba(0,0,0,0.20);
+}
+
+/* heading */
+h2{
+    text-align:center;
+    color:white;
+    font-size:36px;
+    margin-bottom:26px;
+}
+
+/* spacing */
+input{
+    margin-bottom:16px;
+}
+
+/* button */
+button{
+    width:100%;
+    margin-top:6px;
+}
+
+/* messages */
+.error{
+    color:#fca5a5;
+    text-align:center;
+    margin-bottom:14px;
+    font-size:14px;
+}
+
+.success{
+    color:#86efac;
+    text-align:center;
+    margin-bottom:14px;
+    font-size:14px;
+}
+
+/* login text */
+.login-link{
+    text-align:center;
+    margin-top:22px;
+    font-size:15px;
+    color:white;
+}
+
+.login-link a{
+    color:#93c5fd;
+    text-decoration:none;
+    font-weight:600;
+}
+
+.login-link a:hover{
+    color:white;
+}
+
+/* mobile */
+@media(max-width:768px){
+    .register-container{
+        width:100%;
+    }
+}
+
+</style>
+</head>
+<body>
+
+<div class="register-container">
+
+    <h2>Create Employee Account</h2>
+
+    <p th:if="${error}"
+       th:text="${error}"
+       class="error"></p>
+
+    <p th:if="${success}"
+       th:text="${success}"
+       class="success"></p>
+
+    <form th:action="@{/employee/register}" method="post">
+
+        <input
+            type="text"
+            name="employeeCode"
+            placeholder="Employee Code (Example: EMP001)"
+            required>
+
+        <input
+            type="email"
+            name="email"
+            placeholder="Registered Email Address"
+            required>
+
+        <input
+            type="text"
+            name="username"
+            placeholder="Create Username"
+            required>
+
+        <input
+            type="password"
+            name="password"
+            placeholder="Create Password"
+            required>
+
+        <input
+            type="password"
+            name="confirmPassword"
+            placeholder="Confirm Password"
+            required>
+
+        <button type="submit">
+            Create Account
+        </button>
+
+    </form>
+
+    <div class="login-link">
+        Already have an account?
+        <a href="/employee/login">Sign In</a>
+    </div>
+
+</div>
+
+</body>
+</html>
